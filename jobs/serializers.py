@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User
+from .models import Job, User
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -13,3 +13,16 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         return user
+
+class JobSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Job
+        fields = [
+    'id',
+    'title',
+    'company',
+    'location',
+    'salary',
+    'description'
+]
