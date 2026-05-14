@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .serializers import RegisterSerializer
 
-from .models import Job
+from .models import ApplyJob, Job, SaveJob
 from .serializers import JobSerializer
 
 @api_view(['POST'])
@@ -70,4 +70,34 @@ def delete_job(request, pk):
 
     return Response({
         "message": "Job deleted"
+    })
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def apply_job(request, pk):
+
+    job = Job.objects.get(id=pk)
+
+    ApplyJob.objects.create(
+        user=request.user,
+        job=job
+    )
+
+    return Response({
+        "message": "Applied successfully"
+    })
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def save_job(request, pk):
+
+    job = Job.objects.get(id=pk)
+
+    SaveJob.objects.create(
+        user=request.user,
+        job=job
+    )
+
+    return Response({
+        "message": "Job saved"
     })

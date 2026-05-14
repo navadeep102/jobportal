@@ -14,3 +14,19 @@ class Job(models.Model):
     description = models.TextField()
     posted_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+class ApplyJob(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+
+    applied_at = models.DateTimeField(auto_now_add=True)
+
+class SaveJob(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+
+    saved_at = models.DateTimeField(auto_now_add=True)
